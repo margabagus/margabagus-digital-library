@@ -1,10 +1,33 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Pages
 import Index from "./pages/Index";
+import Books from "./pages/Books";
+import Categories from "./pages/Categories";
+import BookDetail from "./pages/BookDetail";
+import Reader from "./pages/Reader";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+
+// Register service worker for PWA
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("Service Worker registered: ", registration);
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed: ", error);
+      });
+  });
+}
 
 const queryClient = new QueryClient();
 
@@ -16,7 +39,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/books" element={<Books />} />
+          <Route path="/books/:id" element={<BookDetail />} />
+          <Route path="/books/read/:id" element={<Reader />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
