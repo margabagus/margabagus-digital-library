@@ -26,7 +26,7 @@ export const Captcha = ({ onValidate }: CaptchaProps) => {
   }, []);
 
   useEffect(() => {
-    onValidate(captchaValue === generatedCaptcha);
+    onValidate(captchaValue === generatedCaptcha && captchaValue.length === 4);
   }, [captchaValue, generatedCaptcha, onValidate]);
 
   return (
