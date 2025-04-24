@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -6,13 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BookOpen, Eye, EyeOff } from "lucide-react";
+import { Captcha } from "@/components/auth/Captcha";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!isCaptchaValid) {
+      alert("Please complete the captcha correctly");
+      return;
+    }
+    
     setLoading(true);
     
     // Simulate api call
@@ -87,7 +94,13 @@ const Login = () => {
                   </div>
                 </div>
                 
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Captcha onValidate={setIsCaptchaValid} />
+                
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={loading || !isCaptchaValid}
+                >
                   {loading ? "Memproses..." : "Masuk"}
                 </Button>
               </div>

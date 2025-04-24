@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -7,17 +6,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { BookOpen, Eye, EyeOff } from "lucide-react";
+import { Captcha } from "@/components/auth/Captcha";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!agreed) {
       alert("Anda harus menyetujui syarat dan ketentuan untuk mendaftar.");
+      return;
+    }
+    
+    if (!isCaptchaValid) {
+      alert("Please complete the captcha correctly");
       return;
     }
     
@@ -110,6 +116,8 @@ const Register = () => {
                   </p>
                 </div>
                 
+                <Captcha onValidate={setIsCaptchaValid} />
+                
                 <div className="flex items-start space-x-2">
                   <Checkbox 
                     id="terms" 
@@ -140,7 +148,7 @@ const Register = () => {
                 <Button 
                   type="submit" 
                   className="w-full" 
-                  disabled={loading || !agreed}
+                  disabled={loading || !agreed || !isCaptchaValid}
                 >
                   {loading ? "Memproses..." : "Daftar"}
                 </Button>
