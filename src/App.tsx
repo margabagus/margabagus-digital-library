@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,9 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminBooks from "./pages/admin/AdminBooks";
+import UserDashboard from "./pages/UserDashboard";
+import UserProfile from "./pages/dashboard/UserProfile";
+import ReadingList from "./pages/dashboard/ReadingList";
 
 // Register service worker for PWA
 if ("serviceWorker" in navigator) {
@@ -54,6 +56,13 @@ const App = () => (
             <Route index element={<Navigate to="/admin/analytics" />} />
             <Route path="analytics" element={<AdminAnalytics />} />
             <Route path="books" element={<AdminBooks />} />
+          </Route>
+          
+          {/* User Dashboard Routes */}
+          <Route path="/dashboard" element={<UserDashboard />}>
+            <Route index element={<Navigate to="/dashboard/profile" />} />
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="reading-list" element={<ReadingList />} />
           </Route>
           
           <Route path="*" element={<NotFound />} />
