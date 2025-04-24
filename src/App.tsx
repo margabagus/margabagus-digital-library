@@ -1,8 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Pages
 import Index from "./pages/Index";
@@ -16,10 +17,6 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminBooks from "./pages/admin/AdminBooks";
-import AdminCategories from "./pages/admin/AdminCategories";
-import AdminMessages from "./pages/admin/AdminMessages";
-import AdminUsers from "./pages/admin/AdminUsers";
-import AdminSettings from "./pages/admin/AdminSettings";
 
 // Register service worker for PWA
 if ("serviceWorker" in navigator) {
@@ -57,10 +54,6 @@ const App = () => (
             <Route index element={<Navigate to="/admin/analytics" />} />
             <Route path="analytics" element={<AdminAnalytics />} />
             <Route path="books" element={<AdminBooks />} />
-            <Route path="categories" element={<AdminCategories />} />
-            <Route path="messages" element={<AdminMessages />} />
-            <Route path="users" element={<AdminUsers />} />
-            <Route path="settings" element={<AdminSettings />} />
           </Route>
           
           <Route path="*" element={<NotFound />} />

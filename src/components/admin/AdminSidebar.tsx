@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import {
   BarChart2,
   BookPlus,
-  Category,
+  BookOpen,
   MessageSquare,
   Settings,
   Users,
@@ -34,7 +34,7 @@ const menuItems = [
   {
     title: "Categories",
     path: "/admin/categories",
-    icon: Category,
+    icon: BookOpen,
   },
   {
     title: "Messages",
