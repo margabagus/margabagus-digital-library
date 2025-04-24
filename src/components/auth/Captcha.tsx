@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   InputOTP,
   InputOTPGroup,
+  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
@@ -49,14 +50,14 @@ export const Captcha = ({ onValidate }: CaptchaProps) => {
           value={captchaValue}
           onChange={setCaptchaValue}
           maxLength={4}
-          render={({ slots }) => (
-            <InputOTPGroup>
-              {slots.map((slot, index) => (
-                <InputOTPSlot key={index} index={index} {...slot} />
-              ))}
-            </InputOTPGroup>
-          )}
-        />
+        >
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+          </InputOTPGroup>
+        </InputOTP>
       </div>
     </div>
   );
