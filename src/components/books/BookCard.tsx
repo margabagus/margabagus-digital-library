@@ -32,11 +32,13 @@ export function BookCard({
         )}
       >
         <div className="relative overflow-hidden">
-          <img
-            src={coverImage}
-            alt={`Cover of ${title}`}
-            className="book-cover transform transition-transform duration-300 group-hover:scale-105"
-          />
+          <div className="aspect-[2/3] w-full">
+            <img
+              src={coverImage}
+              alt={`Cover of ${title}`}
+              className="book-cover h-full w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
           <div className="absolute top-2 right-2">
             <span className="category-badge bg-white/80 dark:bg-gray-800/80 text-library-600 dark:text-library-400">
               {category}

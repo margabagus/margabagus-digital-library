@@ -80,7 +80,7 @@ export default function Navbar() {
             Buku
           </Link>
           <Link 
-            to="/about" 
+            to="/about-us" 
             className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
           >
             Tentang
@@ -179,7 +179,7 @@ export default function Navbar() {
                   </SheetClose>
                   <SheetClose asChild>
                     <Link 
-                      to="/about"
+                      to="/about-us"
                       className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
                     >
                       Tentang

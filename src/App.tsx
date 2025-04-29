@@ -13,6 +13,7 @@ import BookDetail from "./pages/BookDetail";
 import Reader from "./pages/Reader";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
@@ -67,6 +68,7 @@ const App = () => (
           <Route path="/categories" element={<Categories />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/support" element={<Support />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />

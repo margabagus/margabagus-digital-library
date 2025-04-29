@@ -49,12 +49,13 @@ export const Captcha = ({ onValidate }: CaptchaProps) => {
           value={captchaValue}
           onChange={setCaptchaValue}
           maxLength={4}
+          className="bg-gray-200 dark:bg-gray-700"
         >
           <InputOTPGroup>
-            <InputOTPSlot index={0} />
-            <InputOTPSlot index={1} />
-            <InputOTPSlot index={2} />
-            <InputOTPSlot index={3} />
+            <InputOTPSlot index={0} className="bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600" />
+            <InputOTPSlot index={1} className="bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600" />
+            <InputOTPSlot index={2} className="bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600" />
+            <InputOTPSlot index={3} className="bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600" />
           </InputOTPGroup>
         </InputOTP>
       </div>
