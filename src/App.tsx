@@ -20,10 +20,19 @@ import AdminBooks from "./pages/admin/AdminBooks";
 import AdminCategories from "./pages/admin/AdminCategories";
 import AdminMessages from "./pages/admin/AdminMessages";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminUsers from "./pages/admin/AdminUsers";
 import UserDashboard from "./pages/UserDashboard";
 import UserProfile from "./pages/dashboard/UserProfile";
 import ReadingList from "./pages/dashboard/ReadingList";
 import Support from "./pages/Support";
+import UserSettings from "./pages/dashboard/UserSettings";
+import UserRecommendations from "./pages/dashboard/UserRecommendations";
+import UserMessages from "./pages/dashboard/UserMessages";
+import AboutUs from "./pages/AboutUs";
+import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
 
 // Register service worker for PWA
 if ("serviceWorker" in navigator) {
@@ -56,6 +65,11 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-use" element={<TermsOfUse />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={<Admin />}>
@@ -65,12 +79,16 @@ const App = () => (
             <Route path="categories" element={<AdminCategories />} />
             <Route path="messages" element={<AdminMessages />} />
             <Route path="settings" element={<AdminSettings />} />
+            <Route path="users" element={<AdminUsers />} />
           </Route>
           
           {/* User Dashboard Routes */}
           <Route path="/dashboard" element={<UserDashboard />}>
             <Route index element={<Navigate to="/dashboard/profile" />} />
             <Route path="profile" element={<UserProfile />} />
+            <Route path="settings" element={<UserSettings />} />
+            <Route path="recommendations" element={<UserRecommendations />} />
+            <Route path="messages" element={<UserMessages />} />
             <Route path="reading-list" element={<ReadingList />} />
           </Route>
           
