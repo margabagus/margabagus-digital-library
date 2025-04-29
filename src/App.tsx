@@ -28,6 +28,9 @@ import Support from "./pages/Support";
 import UserSettings from "./pages/dashboard/UserSettings";
 import UserRecommendations from "./pages/dashboard/UserRecommendations";
 import UserMessages from "./pages/dashboard/UserMessages";
+import UserMyBooks from "./pages/dashboard/UserMyBooks";
+import UserBookmarks from "./pages/dashboard/UserBookmarks";
+import UserReadingProgress from "./pages/dashboard/UserReadingProgress";
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
@@ -87,9 +90,12 @@ const App = () => (
             <Route index element={<Navigate to="/dashboard/profile" />} />
             <Route path="profile" element={<UserProfile />} />
             <Route path="settings" element={<UserSettings />} />
+            <Route path="my-books" element={<UserMyBooks />} />
+            <Route path="reading-list" element={<ReadingList />} />
             <Route path="recommendations" element={<UserRecommendations />} />
             <Route path="messages" element={<UserMessages />} />
-            <Route path="reading-list" element={<ReadingList />} />
+            <Route path="bookmarks" element={<UserBookmarks />} />
+            <Route path="progress" element={<UserReadingProgress />} />
           </Route>
           
           <Route path="*" element={<NotFound />} />

@@ -96,7 +96,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-600 dark:text-gray-400 hover:text-library-600 dark:hover:text-library-400">
+                <Link to="/about-us" className="text-gray-600 dark:text-gray-400 hover:text-library-600 dark:hover:text-library-400">
                   Tentang Kami
                 </Link>
               </li>
@@ -117,7 +117,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-gray-600 dark:text-gray-400 hover:text-library-600 dark:hover:text-library-400">
+                <Link to="/terms-of-use" className="text-gray-600 dark:text-gray-400 hover:text-library-600 dark:hover:text-library-400">
                   Syarat & Ketentuan
                 </Link>
               </li>
