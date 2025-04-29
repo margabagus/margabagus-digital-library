@@ -57,13 +57,13 @@ export function BookCarousel({ title, books, className }: BookCarouselProps) {
 
       <div
         ref={scrollContainerRef}
-        className="flex space-x-4 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4"
+        className="flex gap-4 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4"
       >
         {books.map((book) => (
           <BookCard
             key={book.id}
             {...book}
-            className="min-w-[160px] md:min-w-[200px]"
+            className="flex-shrink-0 w-[180px]"
           />
         ))}
       </div>

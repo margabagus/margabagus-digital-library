@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export interface BookProps {
   id: string;
@@ -31,14 +32,14 @@ export function BookCard({
           className
         )}
       >
-        <div className="relative overflow-hidden">
-          <div className="aspect-[2/3] w-full">
+        <div className="relative">
+          <AspectRatio ratio={2/3} className="overflow-hidden">
             <img
               src={coverImage}
               alt={`Cover of ${title}`}
               className="book-cover h-full w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
             />
-          </div>
+          </AspectRatio>
           <div className="absolute top-2 right-2">
             <span className="category-badge bg-white/80 dark:bg-gray-800/80 text-library-600 dark:text-library-400">
               {category}
