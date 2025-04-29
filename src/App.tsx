@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,9 +17,13 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminBooks from "./pages/admin/AdminBooks";
+import AdminCategories from "./pages/admin/AdminCategories";
+import AdminMessages from "./pages/admin/AdminMessages";
+import AdminSettings from "./pages/admin/AdminSettings";
 import UserDashboard from "./pages/UserDashboard";
 import UserProfile from "./pages/dashboard/UserProfile";
 import ReadingList from "./pages/dashboard/ReadingList";
+import Support from "./pages/Support";
 
 // Register service worker for PWA
 if ("serviceWorker" in navigator) {
@@ -50,12 +55,16 @@ const App = () => (
           <Route path="/categories" element={<Categories />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/support" element={<Support />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={<Admin />}>
             <Route index element={<Navigate to="/admin/analytics" />} />
             <Route path="analytics" element={<AdminAnalytics />} />
             <Route path="books" element={<AdminBooks />} />
+            <Route path="categories" element={<AdminCategories />} />
+            <Route path="messages" element={<AdminMessages />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
           
           {/* User Dashboard Routes */}
