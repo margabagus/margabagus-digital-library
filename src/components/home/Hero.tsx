@@ -1,9 +1,51 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+// A custom hook for animated counters
+const useCounter = (end: number, duration: number = 2000) => {
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const updateCount = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      
+      setCount(Math.floor(percentage * end));
+      
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(updateCount);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(updateCount);
+    
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration]);
+  
+  return count;
+};
+
+// CounterDisplay component
+const CounterDisplay = ({ value, label, suffix = "" }: { value: number, label: string, suffix?: string }) => {
+  const count = useCounter(value);
+  
+  return (
+    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-4 text-center">
+      <div className="text-3xl md:text-4xl font-bold text-library-600 dark:text-library-400">
+        {count}{suffix}
+      </div>
+      <div className="text-sm md:text-base text-gray-600 dark:text-gray-300">{label}</div>
+    </div>
+  );
+};
 
 export function Hero() {
   return (
@@ -54,24 +96,12 @@ export function Hero() {
           </div>
         </div>
         
-        {/* Stats */}
+        {/* Stats with animated counters */}
         <div className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-4 text-center">
-            <div className="text-3xl md:text-4xl font-bold text-library-600 dark:text-library-400">1000+</div>
-            <div className="text-sm md:text-base text-gray-600 dark:text-gray-300">Total Buku</div>
-          </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-4 text-center">
-            <div className="text-3xl md:text-4xl font-bold text-library-600 dark:text-library-400">24+</div>
-            <div className="text-sm md:text-base text-gray-600 dark:text-gray-300">Kategori</div>
-          </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-4 text-center">
-            <div className="text-3xl md:text-4xl font-bold text-library-600 dark:text-library-400">10K+</div>
-            <div className="text-sm md:text-base text-gray-600 dark:text-gray-300">Pengguna</div>
-          </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-4 text-center">
-            <div className="text-3xl md:text-4xl font-bold text-library-600 dark:text-library-400">100%</div>
-            <div className="text-sm md:text-base text-gray-600 dark:text-gray-300">Gratis</div>
-          </div>
+          <CounterDisplay value={1000} label="Total Buku" suffix="+" />
+          <CounterDisplay value={24} label="Kategori" suffix="+" />
+          <CounterDisplay value={10000} label="Pengguna" suffix="+" />
+          <CounterDisplay value={100} label="Gratis" suffix="%" />
         </div>
       </div>
     </div>
