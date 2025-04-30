@@ -28,7 +28,7 @@ export function BookCarousel({ title, books, className }: BookCarouselProps) {
   };
 
   return (
-    <div className={cn("w-full py-4", className)}>
+    <div className={cn("w-full py-6", className)}>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">
           {title}
@@ -57,13 +57,13 @@ export function BookCarousel({ title, books, className }: BookCarouselProps) {
 
       <div
         ref={scrollContainerRef}
-        className="flex gap-6 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4"
+        className="flex gap-6 overflow-x-auto pb-6 scrollbar-none -mx-4 px-4"
       >
         {books.map((book) => (
           <BookCard
             key={book.id}
             {...book}
-            className="flex-shrink-0 w-[240px]"
+            className="flex-shrink-0 w-[260px]"
           />
         ))}
       </div>
