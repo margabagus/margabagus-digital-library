@@ -1,9 +1,10 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import defaultCover from "@/assets/default-book-cover.svg";
 
 export interface BookProps {
   id: string;
@@ -24,20 +25,27 @@ export function BookCard({
   rating,
   className
 }: BookProps) {
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <Link to={`/books/${id}`}>
       <div
         className={cn(
-          "book-card group bg-white dark:bg-gray-800",
+          "book-card group bg-white dark:bg-gray-800 h-[360px]",
           className
         )}
       >
         <div className="relative">
           <AspectRatio ratio={2/3} className="overflow-hidden">
             <img
-              src={coverImage}
+              src={imageError ? defaultCover : coverImage}
               alt={`Cover of ${title}`}
               className="book-cover h-full w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+              onError={handleImageError}
             />
           </AspectRatio>
           <div className="absolute top-2 right-2">
@@ -46,11 +54,11 @@ export function BookCard({
             </span>
           </div>
         </div>
-        <div className="p-3">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight">
+        <div className="p-3 flex flex-col h-[100px]">
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight mb-1">
             {title}
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-auto line-clamp-1">
             {author}
           </p>
           <div className="flex items-center justify-between mt-2">
