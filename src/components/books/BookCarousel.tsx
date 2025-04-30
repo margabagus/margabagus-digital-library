@@ -17,7 +17,7 @@ export function BookCarousel({ title, books, className }: BookCarouselProps) {
   const scroll = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;
     
-    const scrollAmount = 380; // Increased to match the wider card width
+    const scrollAmount = 400; // Increased to match the wider card width
     const container = scrollContainerRef.current;
     
     if (direction === "left") {
@@ -63,7 +63,7 @@ export function BookCarousel({ title, books, className }: BookCarouselProps) {
           <BookCard
             key={book.id}
             {...book}
-            className="flex-shrink-0 w-[220px]"
+            className="flex-shrink-0 w-[240px]"
           />
         ))}
       </div>
