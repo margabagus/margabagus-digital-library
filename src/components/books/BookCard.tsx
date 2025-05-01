@@ -54,7 +54,7 @@ export function BookCard({
             </span>
           </div>
         </div>
-        <div className="p-4 flex flex-col h-[240px]">
+        <div className="p-4 flex flex-col h-[300px]">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight mb-4">
             {title}
           </h3>
