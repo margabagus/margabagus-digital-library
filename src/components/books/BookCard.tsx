@@ -35,7 +35,7 @@ export function BookCard({
     <Link to={`/books/${id}`}>
       <div
         className={cn(
-          "book-card group bg-white dark:bg-gray-800 h-[550px] w-full mb-[400px]",
+          "book-card group bg-white dark:bg-gray-800 h-[500px] w-full mb-[400px]",
           className
         )}
       >
@@ -54,7 +54,7 @@ export function BookCard({
             </span>
           </div>
         </div>
-        <div className="p-4 flex flex-col h-[300px]">
+        <div className="p-4 flex flex-col h-[350px]">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight mb-4">
             {title}
           </h3>
