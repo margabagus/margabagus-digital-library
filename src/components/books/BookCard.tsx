@@ -58,7 +58,7 @@ export function BookCard({
           <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight mb-4">
             {title}
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-auto line-clamp-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-5 line-clamp-1">
             {author}
           </p>
           <div className="flex items-center justify-between mt-8 pt-4 border-t border-gray-100 dark:border-gray-700">
