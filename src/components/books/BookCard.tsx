@@ -35,7 +35,7 @@ export function BookCard({
     <Link to={`/books/${id}`}>
       <div
         className={cn(
-          "book-card group bg-white dark:bg-gray-800 h-[500px] w-full mb-12",
+          "book-card group bg-white dark:bg-gray-800 h-[500px] w-full mb-[300px]",
           className
         )}
       >
