@@ -11,12 +11,13 @@ import {
   SheetClose 
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/providers/ThemeProvider";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,22 +31,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    // Check for system preference or saved preference
-    const isDark = localStorage.getItem("darkMode") === "true" || 
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    setIsDarkMode(isDark);
-    document.documentElement.classList.toggle("dark", isDark);
-  }, []);
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    document.documentElement.classList.toggle("dark", newDarkMode);
-    localStorage.setItem("darkMode", newDarkMode.toString());
-  };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
