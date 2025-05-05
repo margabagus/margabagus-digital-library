@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +48,16 @@ const CounterDisplay = ({ value, label, suffix = "" }: { value: number, label: s
 };
 
 export function Hero() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <div className="relative bg-gradient-to-b from-library-50 to-white dark:from-gray-900 dark:to-gray-950 overflow-hidden">
       {/* Decorative elements */}
@@ -67,17 +77,19 @@ export function Hero() {
             Akses ribuan buku digital kapanpun dan dimanapun. Baca online atau offline dengan tampilan yang responsif dan mudah digunakan.
           </p>
           
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 max-w-md mx-auto">
+          <form onSubmit={handleSearchSubmit} className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 max-w-md mx-auto">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 dark:text-gray-400" />
               <Input 
                 type="search" 
                 placeholder="Cari judul, penulis, atau kategori..." 
-                className="pl-10 h-12 rounded-lg" 
+                className="pl-10 h-12 rounded-lg"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button className="h-12 px-8">Cari Buku</Button>
-          </div>
+            <Button type="submit" className="h-12 px-8">Cari Buku</Button>
+          </form>
           
           <div className="mt-6 flex items-center justify-center space-x-6">
             <Link 
