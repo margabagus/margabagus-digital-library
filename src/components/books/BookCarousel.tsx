@@ -63,7 +63,7 @@ export function BookCarousel({ title, books, className }: BookCarouselProps) {
           <BookCard
             key={book.id}
             {...book}
-            className="flex-shrink-0 w-[280px]"
+            className="flex-shrink-0 w-[280px] min-h-[400px]"
           />
         ))}
       </div>
