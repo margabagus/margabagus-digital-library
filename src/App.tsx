@@ -14,6 +14,7 @@ import Reader from "./pages/Reader";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
+import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
@@ -66,6 +67,7 @@ const App = () => (
           <Route path="/books/:id" element={<BookDetail />} />
           <Route path="/books/read/:id" element={<Reader />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

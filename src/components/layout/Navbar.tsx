@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Search, Sun, Moon, User, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +45,14 @@ export default function Navbar() {
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle("dark", newDarkMode);
     localStorage.setItem("darkMode", newDarkMode.toString());
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
   };
 
   return (
@@ -142,14 +152,16 @@ export default function Navbar() {
                 </div>
                 
                 <div className="py-4">
-                  <div className="relative">
+                  <form onSubmit={handleSearchSubmit} className="relative">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
                     <Input 
                       type="search" 
                       placeholder="Cari buku..."
                       className="pl-9"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                  </div>
+                  </form>
                 </div>
                 
                 <nav className="flex-1 space-y-4 py-4">

@@ -26,9 +26,14 @@ const NotFound = () => {
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
           Maaf, halaman yang Anda cari tidak ditemukan atau mungkin telah dipindahkan.
         </p>
-        <Button asChild className="mx-auto">
-          <Link to="/">Kembali ke Beranda</Link>
-        </Button>
+        <div className="space-y-4">
+          <Button asChild className="w-full">
+            <Link to="/">Kembali ke Beranda</Link>
+          </Button>
+          <Button asChild variant="outline" className="w-full">
+            <Link to="/search">Cari Buku</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
