@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MessageSquare, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, {
@@ -31,6 +32,7 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 export default function Contact() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -50,6 +52,10 @@ export default function Contact() {
     form.reset();
     console.log(data);
   }
+
+  const handleStartChat = () => {
+    navigate('/support');
+  };
 
   return (
     <Layout>
@@ -84,7 +90,7 @@ export default function Contact() {
             <MessageSquare className="h-8 w-8 mb-4 text-primary" />
             <h2 className="text-xl font-bold mb-2">Live Chat</h2>
             <p className="text-muted-foreground mb-4">Available during business hours</p>
-            <Button variant="secondary">Start Chat</Button>
+            <Button variant="secondary" onClick={handleStartChat}>Start Chat</Button>
           </Card>
         </div>
         
