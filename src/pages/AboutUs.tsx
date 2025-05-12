@@ -2,37 +2,9 @@
 import React from "react";
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Info } from "lucide-react";
 
 export default function AboutUs() {
-  const teamMembers = [
-    {
-      name: "Sarah Johnson",
-      role: "Founder & CEO",
-      image: "/placeholder.svg",
-      bio: "Sarah has over 15 years of experience in publishing and technology."
-    },
-    {
-      name: "Michael Chen",
-      role: "CTO",
-      image: "/placeholder.svg",
-      bio: "Michael leads our technology team with expertise in digital reading platforms."
-    },
-    {
-      name: "Priya Patel",
-      role: "Content Director",
-      image: "/placeholder.svg",
-      bio: "Priya oversees our content curation and publisher relationships."
-    },
-    {
-      name: "David Rodriguez",
-      role: "UX Designer",
-      image: "/placeholder.svg",
-      bio: "David ensures our reading experience is intuitive and enjoyable."
-    }
-  ];
-  
   return (
     <Layout>
       <div className="container py-12">
@@ -98,25 +70,6 @@ export default function AboutUs() {
             </div>
           </CardContent>
         </Card>
-        
-        <h2 className="text-3xl font-bold mb-6 text-center">Our Team</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {teamMembers.map((member, index) => (
-            <Card key={index}>
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <Avatar className="h-24 w-24 mb-4">
-                    <AvatarImage src={member.image} alt={member.name} />
-                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <h3 className="text-lg font-bold">{member.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{member.role}</p>
-                  <p className="text-sm">{member.bio}</p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
       </div>
     </Layout>
   );
