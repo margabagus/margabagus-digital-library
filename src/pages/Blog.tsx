@@ -2,7 +2,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import Layout from "@/components/layout/Layout";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BlogPostGrid from "@/components/blog/BlogPostGrid";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import { BlogPost } from "@/types/blog";
