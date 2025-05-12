@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import PWAManager from "./components/pwa/PWAManager";
 
 // Pages
 import Index from "./pages/Index";
@@ -63,6 +64,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <PWAManager />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/books" element={<Books />} />
