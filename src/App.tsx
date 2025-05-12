@@ -40,6 +40,8 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 
 // Register service worker for PWA
 if ("serviceWorker" in navigator) {
@@ -81,6 +83,10 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-use" element={<TermsOfUse />} />
+            
+            {/* Blog Routes */}
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             
             {/* Admin Routes */}
             <Route path="/admin" element={<Admin />}>

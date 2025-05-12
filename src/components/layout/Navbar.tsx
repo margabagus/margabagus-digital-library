@@ -75,6 +75,12 @@ export default function Navbar() {
             Buku
           </Link>
           <Link 
+            to="/blog" 
+            className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
+          >
+            Blog
+          </Link>
+          <Link 
             to="/about-us" 
             className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
           >
@@ -172,6 +178,14 @@ export default function Navbar() {
                       className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
                     >
                       Buku
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link 
+                      to="/blog"
+                      className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
+                    >
+                      Blog
                     </Link>
                   </SheetClose>
                   <SheetClose asChild>
