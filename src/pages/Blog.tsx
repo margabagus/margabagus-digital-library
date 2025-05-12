@@ -1,11 +1,12 @@
+
 import React from "react";
 import { Helmet } from "react-helmet";
 import Layout from "@/components/layout/Layout";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BlogPostGrid from "@/components/blog/BlogPostGrid";
 import BlogSidebar from "@/components/blog/BlogSidebar";
-import { useLocation } from "react-router-dom";
 import { BlogPost } from "@/types/blog";
+import { useLocation } from "react-router-dom";
 
 // Sample blog posts for initial display
 import { sampleBlogPosts } from "@/data/sampleBlogPosts";

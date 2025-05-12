@@ -12,7 +12,6 @@ import BlogSidebar from "@/components/blog/BlogSidebar";
 import RelatedPosts from "@/components/blog/RelatedPosts";
 import NotFound from "./NotFound";
 import { formatDate } from "@/lib/utils";
-import { BlogPost as BlogPostType } from "@/types/blog";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
