@@ -22,10 +22,12 @@ export default function AdminBlogPosts() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Manage Blog Posts</h1>
-        <Button as={Link} to="/admin/blog/new">
-          <Plus className="mr-2 h-4 w-4" />
-          New Post
-        </Button>
+        <Link to="/admin/blog/new">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            New Post
+          </Button>
+        </Link>
       </div>
       
       <Separator />
@@ -66,18 +68,18 @@ export default function AdminBlogPosts() {
                   </td>
                   <td className="p-4 align-middle">
                     <div className="flex justify-end gap-2">
-                      <Button variant="outline" size="icon" asChild>
-                        <Link to={`/blog/${post.slug}`} target="_blank">
+                      <Link to={`/blog/${post.slug}`} target="_blank">
+                        <Button variant="outline" size="icon">
                           <Eye className="h-4 w-4" />
                           <span className="sr-only">View</span>
-                        </Link>
-                      </Button>
-                      <Button variant="outline" size="icon" asChild>
-                        <Link to={`/admin/blog/edit/${post.id}`}>
+                        </Button>
+                      </Link>
+                      <Link to={`/admin/blog/edit/${post.id}`}>
+                        <Button variant="outline" size="icon">
                           <Edit className="h-4 w-4" />
                           <span className="sr-only">Edit</span>
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                       <Button 
                         variant="outline" 
                         size="icon" 
