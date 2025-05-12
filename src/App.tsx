@@ -25,8 +25,6 @@ import AdminCategories from "./pages/admin/AdminCategories";
 import AdminMessages from "./pages/admin/AdminMessages";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminUsers from "./pages/admin/AdminUsers";
-import AdminBlogPosts from "./pages/admin/AdminBlogPosts";
-import AdminBlogEditor from "./pages/admin/AdminBlogEditor";
 import UserDashboard from "./pages/UserDashboard";
 import UserProfile from "./pages/dashboard/UserProfile";
 import ReadingList from "./pages/dashboard/ReadingList";
@@ -38,8 +36,6 @@ import UserMyBooks from "./pages/dashboard/UserMyBooks";
 import UserBookmarks from "./pages/dashboard/UserBookmarks";
 import UserReadingProgress from "./pages/dashboard/UserReadingProgress";
 import AboutUs from "./pages/AboutUs";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -81,8 +77,6 @@ const App = () => (
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/support" element={<Support />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -97,9 +91,6 @@ const App = () => (
               <Route path="messages" element={<AdminMessages />} />
               <Route path="settings" element={<AdminSettings />} />
               <Route path="users" element={<AdminUsers />} />
-              <Route path="blog" element={<AdminBlogPosts />} />
-              <Route path="blog/new" element={<AdminBlogEditor />} />
-              <Route path="blog/edit/:id" element={<AdminBlogEditor />} />
             </Route>
             
             {/* User Dashboard Routes */}
