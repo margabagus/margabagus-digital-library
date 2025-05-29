@@ -1,31 +1,21 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Search, Sun, Moon, User, BookOpen, LogOut } from "lucide-react";
+import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetTrigger,
-  SheetClose 
-} from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/providers/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
+import Logo from "./navbar/Logo";
+import DesktopNavigation from "./navbar/DesktopNavigation";
+import ThemeToggle from "./navbar/ThemeToggle";
+import UserMenu from "./navbar/UserMenu";
+import MobileMenu from "./navbar/MobileMenu";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  const { isDarkMode, toggleDarkMode } = useTheme();
-  const { user, profile, signOut } = useAuth();
+  const { signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,14 +29,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
-    }
-  };
 
   const handleSignOut = async () => {
     try {
@@ -67,55 +49,14 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link 
-          to="/" 
-          className="flex items-center space-x-2"
-        >
-          <BookOpen className="h-7 w-7 text-library-600 dark:text-library-400" />
-          <span className="font-bold text-lg md:text-xl text-gray-800 dark:text-gray-100">
-            Marga Bagus Library
-          </span>
-        </Link>
+        <Logo />
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link 
-            to="/categories" 
-            className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-          >
-            Kategori
-          </Link>
-          <Link 
-            to="/books" 
-            className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-          >
-            Buku
-          </Link>
-          <Link 
-            to="/blog" 
-            className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-          >
-            Blog
-          </Link>
-          <Link 
-            to="/about-us" 
-            className="text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-          >
-            Tentang
-          </Link>
-        </nav>
+        <DesktopNavigation />
 
         <div className="flex items-center space-x-4">
-          {/* Search and Icons */}
+          {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleDarkMode}
-              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+            <ThemeToggle />
             
             <Button 
               variant="ghost" 
@@ -127,157 +68,15 @@ export default function Navbar() {
               </Link>
             </Button>
             
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link to="/dashboard">Dashboard</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/dashboard/profile">Profile</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/dashboard/bookmarks">Bookmarks</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Button 
-                variant="ghost" 
-                size="icon"
-                asChild
-              >
-                <Link to="/login" aria-label="Login">
-                  <User className="h-5 w-5" />
-                </Link>
-              </Button>
-            )}
+            <UserMenu />
           </div>
           
           {/* Mobile Menu */}
-          <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="sm:max-w-sm">
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between pb-4 border-b">
-                  <div className="flex items-center space-x-2">
-                    <BookOpen className="h-6 w-6 text-library-600 dark:text-library-400" />
-                    <span className="font-bold">MB Library</span>
-                  </div>
-                  <SheetClose asChild>
-                    <Button variant="ghost" size="icon">
-                      <X className="h-5 w-5" />
-                    </Button>
-                  </SheetClose>
-                </div>
-                
-                <div className="py-4">
-                  <form onSubmit={handleSearchSubmit} className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
-                    <Input 
-                      type="search" 
-                      placeholder="Cari buku..."
-                      className="pl-9"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </form>
-                </div>
-                
-                <nav className="flex-1 space-y-4 py-4">
-                  <SheetClose asChild>
-                    <Link 
-                      to="/"
-                      className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-                    >
-                      Beranda
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link 
-                      to="/categories"
-                      className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-                    >
-                      Kategori
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link 
-                      to="/books"
-                      className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-                    >
-                      Buku
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link 
-                      to="/blog"
-                      className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-                    >
-                      Blog
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link 
-                      to="/about-us"
-                      className="block px-2 py-3 text-gray-700 dark:text-gray-300 hover:text-library-600 dark:hover:text-library-400 transition-colors"
-                    >
-                      Tentang
-                    </Link>
-                  </SheetClose>
-                </nav>
-                
-                <div className="py-4 border-t mt-auto space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700 dark:text-gray-300">Dark Mode</span>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      onClick={toggleDarkMode}
-                    >
-                      {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                    </Button>
-                  </div>
-                  
-                  <div className="flex space-x-2">
-                    {user ? (
-                      <>
-                        <Button asChild className="w-full">
-                          <Link to="/dashboard">Dashboard</Link>
-                        </Button>
-                        <Button onClick={handleSignOut} variant="outline" className="w-full">
-                          Sign Out
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <Button asChild className="w-full">
-                          <Link to="/login">Masuk</Link>
-                        </Button>
-                        <Button asChild variant="outline" className="w-full">
-                          <Link to="/register">Daftar</Link>
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <MobileMenu 
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            onSignOut={handleSignOut}
+          />
         </div>
       </div>
     </header>

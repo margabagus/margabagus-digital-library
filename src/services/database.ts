@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { BookProps } from "@/components/books/BookCard";
 
@@ -43,7 +42,7 @@ export interface Profile {
   username?: string;
   avatar_url?: string;
   bio?: string;
-  role: string;
+  role: 'admin' | 'librarian' | 'member';
 }
 
 // Categories
@@ -152,7 +151,7 @@ export const getCurrentUserProfile = async () => {
   return data;
 };
 
-export const updateUserProfile = async (updates: Partial<Profile>) => {
+export const updateUserProfile = async (updates: Partial<Omit<Profile, 'role'>> & { role?: 'admin' | 'librarian' | 'member' }) => {
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) throw new Error('Not authenticated');
