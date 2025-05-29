@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Search, Sun, Moon, User, BookOpen } from "lucide-react";
+import { Menu, X, Search, Sun, Moon, User, BookOpen, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -10,14 +9,23 @@ import {
   SheetTrigger,
   SheetClose 
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const { user, profile, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +45,15 @@ export default function Navbar() {
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery("");
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
     }
   };
 
@@ -110,15 +127,41 @@ export default function Navbar() {
               </Link>
             </Button>
             
-            <Button 
-              variant="ghost" 
-              size="icon"
-              asChild
-            >
-              <Link to="/login" aria-label="User profile">
-                <User className="h-5 w-5" />
-              </Link>
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard/bookmarks">Bookmarks</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="icon"
+                asChild
+              >
+                <Link to="/login" aria-label="Login">
+                  <User className="h-5 w-5" />
+                </Link>
+              </Button>
+            )}
           </div>
           
           {/* Mobile Menu */}
@@ -211,12 +254,25 @@ export default function Navbar() {
                   </div>
                   
                   <div className="flex space-x-2">
-                    <Button asChild className="w-full">
-                      <Link to="/login">Masuk</Link>
-                    </Button>
-                    <Button asChild variant="outline" className="w-full">
-                      <Link to="/register">Daftar</Link>
-                    </Button>
+                    {user ? (
+                      <>
+                        <Button asChild className="w-full">
+                          <Link to="/dashboard">Dashboard</Link>
+                        </Button>
+                        <Button onClick={handleSignOut} variant="outline" className="w-full">
+                          Sign Out
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button asChild className="w-full">
+                          <Link to="/login">Masuk</Link>
+                        </Button>
+                        <Button asChild variant="outline" className="w-full">
+                          <Link to="/register">Daftar</Link>
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

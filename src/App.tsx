@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import { AuthProvider } from "./hooks/useAuth";
 import PWAManager from "./components/pwa/PWAManager";
 
 // Pages
@@ -62,60 +63,62 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <PWAManager />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/books" element={<Books />} />
-            <Route path="/books/:id" element={<BookDetail />} />
-            <Route path="/books/read/:id" element={<Reader />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-use" element={<TermsOfUse />} />
-            
-            {/* Blog Routes */}
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin" element={<Admin />}>
-              <Route index element={<Navigate to="/admin/analytics" />} />
-              <Route path="analytics" element={<AdminAnalytics />} />
-              <Route path="books" element={<AdminBooks />} />
-              <Route path="categories" element={<AdminCategories />} />
-              <Route path="messages" element={<AdminMessages />} />
-              <Route path="settings" element={<AdminSettings />} />
-              <Route path="users" element={<AdminUsers />} />
-            </Route>
-            
-            {/* User Dashboard Routes */}
-            <Route path="/dashboard" element={<UserDashboard />}>
-              <Route index element={<Navigate to="/dashboard/profile" />} />
-              <Route path="profile" element={<UserProfile />} />
-              <Route path="settings" element={<UserSettings />} />
-              <Route path="my-books" element={<UserMyBooks />} />
-              <Route path="reading-list" element={<ReadingList />} />
-              <Route path="recommendations" element={<UserRecommendations />} />
-              <Route path="messages" element={<UserMessages />} />
-              <Route path="bookmarks" element={<UserBookmarks />} />
-              <Route path="progress" element={<UserReadingProgress />} />
-            </Route>
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <PWAManager />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/books" element={<Books />} />
+              <Route path="/books/:id" element={<BookDetail />} />
+              <Route path="/books/read/:id" element={<Reader />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
+              
+              {/* Blog Routes */}
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<Admin />}>
+                <Route index element={<Navigate to="/admin/analytics" />} />
+                <Route path="analytics" element={<AdminAnalytics />} />
+                <Route path="books" element={<AdminBooks />} />
+                <Route path="categories" element={<AdminCategories />} />
+                <Route path="messages" element={<AdminMessages />} />
+                <Route path="settings" element={<AdminSettings />} />
+                <Route path="users" element={<AdminUsers />} />
+              </Route>
+              
+              {/* User Dashboard Routes */}
+              <Route path="/dashboard" element={<UserDashboard />}>
+                <Route index element={<Navigate to="/dashboard/profile" />} />
+                <Route path="profile" element={<UserProfile />} />
+                <Route path="settings" element={<UserSettings />} />
+                <Route path="my-books" element={<UserMyBooks />} />
+                <Route path="reading-list" element={<ReadingList />} />
+                <Route path="recommendations" element={<UserRecommendations />} />
+                <Route path="messages" element={<UserMessages />} />
+                <Route path="bookmarks" element={<UserBookmarks />} />
+                <Route path="progress" element={<UserReadingProgress />} />
+              </Route>
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );
