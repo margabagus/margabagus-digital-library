@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -9,12 +9,12 @@ type ThemeContextType = {
   toggleDarkMode: () => void;
 };
 
-const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Only check for saved preference, not system preference
     const isDark = localStorage.getItem("darkMode") === "true";
     setIsDarkMode(isDark);
@@ -36,7 +36,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 }
 
 export const useTheme = (): ThemeContextType => {
-  const context = React.useContext(ThemeContext);
+  const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
