@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,33 +7,73 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { BookOpen, Eye, EyeOff } from "lucide-react";
 import { Captcha } from "@/components/auth/Captcha";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/components/ui/use-toast";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  
+  const { signUp } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!agreed) {
-      alert("Anda harus menyetujui syarat dan ketentuan untuk mendaftar.");
+      toast({
+        title: "Error",
+        description: "Anda harus menyetujui syarat dan ketentuan untuk mendaftar.",
+        variant: "destructive",
+      });
       return;
     }
     
     if (!isCaptchaValid) {
-      alert("Please complete the captcha correctly");
+      toast({
+        title: "Error",
+        description: "Please complete the captcha correctly",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      toast({
+        title: "Error",
+        description: "Password harus minimal 8 karakter",
+        variant: "destructive",
+      });
       return;
     }
     
     setLoading(true);
     
-    // Simulate api call
-    setTimeout(() => {
+    try {
+      await signUp(email, password, {
+        first_name: firstName,
+        last_name: lastName,
+      });
+      toast({
+        title: "Pendaftaran Berhasil",
+        description: "Akun Anda telah dibuat. Silakan login untuk melanjutkan.",
+      });
+      navigate('/login');
+    } catch (error: any) {
+      toast({
+        title: "Pendaftaran Gagal",
+        description: error.message || "Terjadi kesalahan saat mendaftar",
+        variant: "destructive",
+      });
+    } finally {
       setLoading(false);
-      // Redirect would happen here
-    }, 1000);
+    }
   };
 
   return (
@@ -65,6 +105,8 @@ const Register = () => {
                       id="firstName" 
                       placeholder="John" 
                       autoComplete="off"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       required 
                     />
                   </div>
@@ -74,6 +116,8 @@ const Register = () => {
                       id="lastName" 
                       placeholder="Doe" 
                       autoComplete="off"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -85,6 +129,8 @@ const Register = () => {
                     type="email" 
                     placeholder="email@example.com" 
                     autoComplete="off"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required 
                   />
                 </div>
@@ -97,6 +143,8 @@ const Register = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••" 
                       autoComplete="off"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required 
                     />
                     <button 

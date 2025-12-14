@@ -1,33 +1,50 @@
-
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BookOpen, Eye, EyeOff } from "lucide-react";
 import { Captcha } from "@/components/auth/Captcha";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/components/ui/use-toast";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!isCaptchaValid) {
-      alert("Please complete the captcha correctly");
+      toast({
+        title: "Error",
+        description: "Please complete the captcha correctly",
+        variant: "destructive",
+      });
       return;
     }
     
     setLoading(true);
     
-    // Simulate api call
-    setTimeout(() => {
+    try {
+      await signIn(email, password);
+      navigate('/dashboard');
+    } catch (error: any) {
+      toast({
+        title: "Login Failed",
+        description: error.message || "Invalid email or password",
+        variant: "destructive",
+      });
+    } finally {
       setLoading(false);
-      // Redirect would happen here
-    }, 1000);
+    }
   };
 
   return (
@@ -59,6 +76,8 @@ const Login = () => {
                     type="email" 
                     placeholder="email@example.com" 
                     autoComplete="off"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required 
                   />
                 </div>
@@ -79,6 +98,8 @@ const Login = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••" 
                       autoComplete="off"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required 
                     />
                     <button 

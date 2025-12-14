@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -8,13 +7,15 @@ import { Label } from "@/components/ui/label";
 import { BookOpen } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { Captcha } from "@/components/auth/Captcha";
+import { supabase } from "@/integrations/supabase/client";
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!isCaptchaValid) {
@@ -28,15 +29,27 @@ const ForgotPassword = () => {
     
     setLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      
+      if (error) throw error;
+      
       setEmailSent(true);
       toast({
         title: "Email terkirim",
         description: "Instruksi untuk reset password telah dikirim ke email Anda",
       });
-    }, 1500);
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Terjadi kesalahan saat mengirim email",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,7 +80,9 @@ const ForgotPassword = () => {
                     <Input 
                       id="email" 
                       type="email" 
-                      placeholder="email@example.com" 
+                      placeholder="email@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required 
                     />
                   </div>
