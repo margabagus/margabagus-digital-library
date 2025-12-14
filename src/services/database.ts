@@ -151,14 +151,17 @@ export const getCurrentUserProfile = async () => {
   return data;
 };
 
-export const updateUserProfile = async (updates: Partial<Omit<Profile, 'role'>> & { role?: 'admin' | 'librarian' | 'member' }) => {
+export const updateUserProfile = async (updates: Partial<Omit<Profile, 'id' | 'role'>>) => {
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) throw new Error('Not authenticated');
   
+  // Explicitly exclude role from updates to prevent privilege escalation
+  const { role, ...safeUpdates } = updates as any;
+  
   const { data, error } = await supabase
     .from('profiles')
-    .update(updates)
+    .update(safeUpdates)
     .eq('id', user.id)
     .select()
     .single();
