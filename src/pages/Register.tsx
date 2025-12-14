@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { BookOpen, Eye, EyeOff } from "lucide-react";
 import { Captcha } from "@/components/auth/Captcha";
 import { useAuth } from "@/hooks/useAuth";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
