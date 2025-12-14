@@ -65,9 +65,9 @@ const App = () => (
     <ThemeProvider>
       <AuthProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
           <BrowserRouter>
+            <Toaster />
+            <Sonner />
             <PWAManager />
             <Routes>
               <Route path="/" element={<Index />} />
