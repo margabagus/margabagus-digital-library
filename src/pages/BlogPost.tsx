@@ -1,6 +1,7 @@
 
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 import Layout from "@/components/layout/Layout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -72,7 +73,7 @@ export default function BlogPost() {
               )}
               
               <div className="prose dark:prose-invert max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
               </div>
               
               <div className="mt-8 flex flex-wrap gap-2">
