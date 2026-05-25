@@ -3,15 +3,33 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/layout/Layout";
 import { BookGrid } from "@/components/books/BookGrid";
-import { getBooks } from "@/services/database";
+import { getBooks, getBooksByCategory, getCategories } from "@/services/database";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Filter } from "lucide-react";
 
 const Books = () => {
-  const { data: books, isLoading, error } = useQuery({
-    queryKey: ['books'],
-    queryFn: getBooks,
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
+
+  const { data: categories, isLoading: categoriesLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
   });
 
-  if (isLoading) {
+  const { data: books, isLoading, error } = useQuery({
+    queryKey: ["books", selectedCategory],
+    queryFn: () =>
+      selectedCategory === "all"
+        ? getBooks()
+        : getBooksByCategory(selectedCategory),
+  });
+
+  if (isLoading || categoriesLoading) {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-8">
@@ -48,10 +66,29 @@ const Books = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-          Koleksi Buku
-        </h1>
-        
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Koleksi Buku
+          </h1>
+
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-[200px] bg-white dark:bg-gray-800">
+                <SelectValue placeholder="Semua Kategori" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Semua Kategori</SelectItem>
+                {categories?.map((category) => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         {books && books.length > 0 ? (
           <BookGrid books={books} />
         ) : (
